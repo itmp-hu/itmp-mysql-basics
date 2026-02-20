@@ -12,7 +12,6 @@
 - Sorok limitálása 
 - NULL értékek kezelése 
 
-
 ## Jelölések
 
 - A MySQL aposztróffal jelöli a szöveget.
@@ -20,9 +19,7 @@
     ```sql
     'szöveg'
     ```
-    - `shift` + `1` 
-    
-
+    - `shift` + `1`  
 
 - Adatbázisok, táblák és mezőnevek jelölése.
 
@@ -34,20 +31,13 @@
 
 - A MySQL eltér az ANSI szabványtól, ahol az azonosítókat idézőjelekkel jelölik.
 
----
-
 ## Értéktípusok
-
-
 
 - Szöveg:
 
     ```sql
     'Nagy Lajos'
     ```
-
-
-<v-click>
 
 - Dátum, idő:
 
@@ -58,9 +48,6 @@
     ```
     - A dátum/idő értékeket szövegként adjuk meg, `ÉÉÉÉ-HH-NN ÓÓ:PP:MM` formátumban
 
-</v-click>
-<v-click>
-
 - Szám:
 
     ```sql
@@ -70,9 +57,6 @@
     - Számok esetében elhagyható az aposztróf
     - Tizedes vessző helyett **tizedes pontot** kell alkalmazni
 
-</v-click>
----
-
 ## Megjegyzések
 
 - Több soros megjegyzés
@@ -81,8 +65,6 @@
     /* több soros megjegyzés */
     ```
     - A C nyelv szintaxisát követi
-
-<v-click>
 
 - Egy soros megjegyzés
 
@@ -98,13 +80,7 @@
 
     - **A `--` után egy szóköznek kell állnia!**
 
-</v-click>
-
-<v-click>
-
 - https://dev.mysql.com/doc/refman/9.6/en/ansi-diff-comments.html
-
-</v-click>
 
 ## SELECT felépítése
 
@@ -115,8 +91,6 @@ WHERE `nem` = 1
     AND `hobbi` = 'futás';
 ```
 
----
-
 ## Egyszerű SELECT: minden adat
 
 Listázza ki a `tanarok` tábla összes adatát!
@@ -125,8 +99,6 @@ Listázza ki a `tanarok` tábla összes adatát!
 SELECT *
 FROM `tanarok`;
 ```
-
-<div class="text-sm">
 
 | `id` | `vezeteknev` | `keresztnev` | `szuletett` | `kor` | `nem` | `szak`               | `hobbi`      | `tanora` | `szakkor` |
 | ---- | ------------ | ------------ | ----------- | ----- | ----- | -------------------- | ------------ | -------- | --------- |
@@ -137,11 +109,6 @@ FROM `tanarok`;
 | 5    | Tóth         | Miklós       | 1979-09-18  | 46    | 1     | -                    | -            | 22       | 2         |
 | 6    | Nagy         | Anna         | 1992-12-05  | 33    | 0     | Etika/Hittan         | fotózás      | 12       | 0         |
 | 7    | Karácsony    | Mária        | 1980-12-05  | 45    | 0     | Matematika/Kémia     | TEREPFUTÁS   | 20       | 1         |
-
-</div>
-
-
---- 
 
 ## Egyszerű SELECT: megadott mezők lekérése
 
@@ -162,20 +129,9 @@ FROM `tanarok`;
 | Nagy         | Anna         |
 | Karácsony    | Mária        |
 
-
----
-layout: two-cols-title
----
-
-::title::
-
 ## Egyedi értékek
 
-
 Listázza ki a tanárok keresztnevét! Ügyeljen rá, hogy **ne legyen benne ismétlődés**!
-
-::left ::
-
 
 ```sql
 SELECT `keresztnev`
@@ -194,10 +150,6 @@ FROM `tanarok`;
 
 - Anna többször is megjelenik ❌
 
-::right::
-
-
-
 ```sql
 SELECT DISTINCT `keresztnev`
 FROM `tanarok`;
@@ -213,9 +165,6 @@ FROM `tanarok`;
 | Mária        |
 
 - Anna már csak egyszer szerepel ✅
-
-
----
 
 ## Egyedi értékek (folytatás)
 
@@ -236,7 +185,6 @@ FROM `tanarok`;
 | Nagy         | Anna         |
 | Karácsony    | Mária        |
 
-
 - A `DISTINCT` a teljes sorra vonatkozik, nem csak a `vezeteknev`-re. 
 
 ## Összehasonlító operátorok
@@ -252,8 +200,6 @@ FROM `tanarok`;
 - `<>` az ANSI szabvány szerinti forma.
 - A `!=` is használható, mint nem egyenlő operátor
 
----
-
 ## Logikai operátorok
 
   | Operátor | Jelentés |
@@ -266,8 +212,6 @@ FROM `tanarok`;
   - A nem szabványos `&&` és `||` operátorok elavultnak számítanak, és kivezetésre fognak kerülni
   - https://dev.mysql.com/doc/refman/9.6/en/logical-operators.html
 
----
-
 ## Egyszerű feltétel I.
 
 Jelenítse meg a női tanárok minden adatát!
@@ -278,18 +222,12 @@ FROM `tanarok`
 WHERE `nem` = 0;
 ```
 
-<div class="text-sm">
-
 | `id` | `vezeteknev` | `keresztnev` | `szuletett` | `kor` | `nem` | `szak`            | `hobbi`      | `tanora` | `szakkor` |
 | ---- | ------------ | ------------ | ----------- | ----- | ----- | ----------------- | ------------ | -------- | --------- |
 | 2    | Kovács       | Anna         | 1986-11-03  | 40    | 0     | Angol/Biológia    | fotózás      | 22       | 2         |
 | 4    | Szabó        | Eszter       | 1988-07-01  | 37    | 0     | Digitális kultúra | kertészkedés | 14       | 2         |
 | 6    | Nagy         | Anna         | 1992-12-05  | 33    | 0     | Etika/Hittan      | fotózás      | 12       | 0         |
 | 7    | Karácsony    | Mária        | 1980-12-05  | 45    | 0     | Matematika/Kémia  | TEREPFUTÁS   | 20       | 1         |
-
-</div>
-
----
 
 ## Egyszerű feltétel II.
 
@@ -301,17 +239,10 @@ FROM `tanarok`
 WHERE `hobbi` = 'fotózás';
 ```
 
-<div class="text-sm">
-
 | `id` | `vezeteknev` | `keresztnev` | `szuletett` | `kor` | `nem` | `szak`         | `hobbi` | `tanora` | `szakkor` |
 | ---- | ------------ | ------------ | ----------- | ----- | ----- | -------------- | ------- | -------- | --------- |
 | 2    | Kovács       | Anna         | 1986-11-03  | 40    | 0     | Angol/Biológia | fotózás | 22       | 2         |
 | 6    | Nagy         | Anna         | 1992-12-05  | 33    | 0     | Etika/Hittan   | fotózás | 12       | 0         |
-
-
-</div>
-
----
 
 ## Egyszerű feltétel ÉS kapcsolattal
 
@@ -329,9 +260,6 @@ WHERE `vezeteknev` = 'Nagy'
 | `vezeteknev` | `keresztnev` | `kor` |
 | --- | --- | --- |
 | Nagy | Péter | 43 |
-
-
----
 
 ## Szűrés intervallumra
 
@@ -355,8 +283,6 @@ WHERE `kor` BETWEEN 30 AND 45;
 
 - A határok is beletartoznak, így a `30` és `45` éves tanárok is megjelennek a végeredményben
 
----
-
 ## És a hétköznapi nyelvben (hibás)
 
 Jelenítse meg a *"Nagy"* és a *"Horváth"* vezetéknevű tanárokat!
@@ -371,8 +297,6 @@ WHERE `vezeteknev` = 'Nagy'
 - A lekérdezés problémás, mert nem lehet egyszerre *"Nagy"* és *"Horváth"* is a vezetéknév!
 - Hétköznapi értelemben a *"Nagy"* és a *"Horváth"* vezetéknevűeket **is** meg kell jeleníteni 
 
----
-
 ## És a hétköznapi nyelvben (jó)
 
 Jelenítse meg a *"Nagy"* és a *"Horváth"* vezetéknevű tanárokat!
@@ -384,15 +308,10 @@ WHERE `vezeteknev` = 'Nagy'
    OR `vezeteknev` = 'Horváth';
 ```
 
-<div class="text-sm">
-
 | `id` | `vezeteknev` | `keresztnev` | `szuletett` | `kor` | `nem` | `szak`            | `hobbi` | `tanora` | `szakkor` |
 | ---- | ------------ | ------------ | ----------- | ----- | ----- | ----------------- | ------- | -------- | --------- |
 | 1    | Nagy         | Péter        | 1982-04-12  | 43    | 1     | Matematika/Fizika | futás   | 24       | 1         |
 | 6    | Nagy         | Anna         | 1992-12-05  | 33    | 0     | Etika/Hittan      | fotózás | 12       | 0         |
-
-</div>
----
 
 ## VAGY (hibás használat)
 
@@ -405,20 +324,13 @@ WHERE `hobbi` = 'futás'
     OR 'fotózás';
 ```
 
-<div class="text-sm">
-
 | `id` | `vezeteknev` | `keresztnev` | `szuletett` | `kor` | `nem` | `szak`            | `hobbi` | `tanora` | `szakkor` |
 | ---- | ------------ | ------------ | ----------- | ----- | ----- | ----------------- | ------- | -------- | --------- |
 | 1    | Nagy         | Péter        | 1982-04-12  | 43    | 1     | Matematika/Fizika | futás   | 24       | 1         |
 
-</div>
-
-
 - Itt az `OR` bal oldalán logikai kifejezés áll, míg a jobb oldalon egyszerű szöveg található
 - A *"fotózás"* szövegnek van logikai értéke: `true`
 - A jobb oldal kiértékelve minden esetben igaz lesz
-
----
 
 ## VAGY (helyes használat)
 
@@ -431,21 +343,14 @@ WHERE `hobbi` = 'futás'
     OR `hobbi` = 'fotózás';
 ```
 
-<div class="text-sm my-4">
-
 | `id` | `vezeteknev` | `keresztnev` | `szuletett` | `kor` | `nem` | `szak`            | `hobbi` | `tanora` | `szakkor` |
 | ---- | ------------ | ------------ | ----------- | ----- | ----- | ----------------- | ------- | -------- | --------- |
 | 1    | Nagy         | Péter        | 1982-04-12  | 43    | 1     | Matematika/Fizika | futás   | 24       | 1         |
 | 2    | Kovács       | Anna         | 1986-11-03  | 40    | 0     | Angol/Biológia    | fotózás | 22       | 2         |
 | 6    | Nagy         | Anna         | 1992-12-05  | 33    | 0     | Etika/Hittan      | fotózás | 12       | 0         |
 
-</div>
-
 - Az `OR` operátor mindkét oldalán logikai kifejezés álljon
 - A mezőnevet így meg kell ismételni
-
-
----
 
 ## Az IN operátor
 
@@ -455,20 +360,14 @@ FROM `tanarok`
 WHERE `hobbi` IN ('futás', 'fotózás');
 ```
 
-<div class="text-sm my-4">
-
 | `id` | `vezeteknev` | `keresztnev` | `szuletett` | `kor` | `nem` | `szak`            | `hobbi` | `tanora` | `szakkor` |
 | ---- | ------------ | ------------ | ----------- | ----- | ----- | ----------------- | ------- | -------- | --------- |
 | 1    | Nagy         | Péter        | 1982-04-12  | 43    | 1     | Matematika/Fizika | futás   | 24       | 1         |
 | 2    | Kovács       | Anna         | 1986-11-03  | 40    | 0     | Angol/Biológia    | fotózás | 22       | 2         |
 | 6    | Nagy         | Anna         | 1992-12-05  | 33    | 0     | Etika/Hittan      | fotózás | 12       | 0         |
 
-</div>
-
 - Az `IN` operátor után zárójelben kell felsorolni a lehetséges értékeket
 - Szám értékek esetében az aposztróf elhagyható
-
----
 
 ## Tagadás: Jegyek ellenőrzése (hibás)
 
@@ -490,8 +389,6 @@ WHERE `jegy` < 1 AND `jegy` > 5;
 
 - Kézzel tagadva könnyű hibázni
 - Nem létezik olyan jegy, amire egyszerre igaz, hogy `<1` és az is, hogy `>5`
-
----
 
 ## Tagadás: Jegyek ellenőrzése (jó)
 
@@ -515,8 +412,6 @@ WHERE `jegy` < 1 OR 5 < `jegy`;
 - "Az a jegy hibás, ami `<1` **illetve** ami `>5`"
 - A DeMorgan azonosság miatt a zárójel felbontásakor az `AND` helyett `OR` fog kelleni
 
----
-
 ## Összetett feltétel I. (hibás)
 
 Jelenítse meg a *"Nagy"* vezetéknevű tanárok közül azokat, akik 40 és 45 év közöttiek, vagy a hobbijuk a *"fotózás"*.
@@ -530,24 +425,14 @@ WHERE `vezeteknev` = 'Nagy'
   OR `hobbi` = 'fotózás';
 ```
 
-<div class="text-sm my-4">
-
 | `id` | `vezeteknev` | `keresztnev` | `szuletett` | `kor` | `nem` | `szak`            | `hobbi` | `tanora` | `szakkor` |
 | ---- | ------------ | ------------ | ----------- | ----- | ----- | ----------------- | ------- | -------- | --------- |
 | 1    | Nagy         | Péter        | 1982-04-12  | 43    | 1     | Matematika/Fizika | futás   | 24       | 1         |
 | 2    | Kovács       | Anna         | 1986-11-03  | 40    | 0     | Angol/Biológia    | fotózás | 22       | 2         |
 | 6    | Nagy         | Anna         | 1992-12-05  | 33    | 0     | Etika/Hittan      | fotózás | 12       | 0         |
 
-</div>
-
-<v-click>
-
 - Az `AND` logikai operátor előbb jön a műveleti sorrendben
 - Mindenkit megjelenít, akinek a *fotózás* a hobbija, de zárójelezéssel javítható
-
-</v-click>
-
----
 
 ## Összetett feltétel I. (jó)
 
@@ -560,30 +445,17 @@ WHERE (`vezeteknev` = 'Nagy')
   AND (`kor` BETWEEN 40 AND 45 OR `hobbi` = 'fotózás');
 ```
 
-<div class="text-sm my-4">
-
 | `id` | `vezeteknev` | `keresztnev` | `szuletett` | `kor` | `nem` | `szak`            | `hobbi` | `tanora` | `szakkor` |
 | ---- | ------------ | ------------ | ----------- | ----- | ----- | ----------------- | ------- | -------- | --------- |
 | 1    | Nagy         | Péter        | 1982-04-12  | 43    | 1     | Matematika/Fizika | futás   | 24       | 1         |
 | 6    | Nagy         | Anna         | 1992-12-05  | 33    | 0     | Etika/Hittan      | fotózás | 12       | 0         |
 
-</div>
-
 - A `BETWEEN` és az `IN` leegyszerűsíti az összetett feltételek írását, csökkenthetik a hibázási lehetőséget
 - Itt az első zárójel valójában elhagyható
-
----
-layout: two-cols-title
----
-
-::title::
-
 
 ## Összetett feltétel II. 
 
 Jelenítse meg a keresztnevét, nemét és hobbiját azoknak a férfi tanároknak, akik legalább 40 évesek, továbbá azoknak a női tanároknak, akik szeretnek kertészkedni illetve fotózni, vagy pedig Annának hívják.
-
-::left::
 
 ```sql
 SELECT `keresztnev`, `nem`, `hobbi`
@@ -599,8 +471,6 @@ WHERE
           )
       );
 ```
-
-::right::
 
 | `keresztnev` | `nem` | `hobbi`      |
 | ------------ | ----- | ------------ |
@@ -621,8 +491,6 @@ FROM `tanarok`
 ORDER BY `vezeteknev` ASC;
 ```
 
-<div class="text-sm my-4">
-
 | `id` | `vezeteknev` | `keresztnev` | `szuletett` | `kor` | `nem` | `szak`               | `hobbi`      | `tanora` | `szakkor` |
 | ---- | ------------ | ------------ | ----------- | ----- | ----- | -------------------- | ------------ | -------- | --------- |
 | 7    | Karácsony    | Mária        | 1980-12-05  | 45    | 0     | Matematika/Kémia     | TEREPFUTÁS   | 20       | 1         |
@@ -633,12 +501,7 @@ ORDER BY `vezeteknev` ASC;
 | 3    | Tóth         | Gábor        | 1996-02-20  | 30    | 1     | Testnevelés/Biológia | -            | 12       | 0         |
 | 5    | Tóth         | Miklós       | 1979-09-18  | 46    | 1     | -                    | -            | 22       | 2         |
 
-</div>
-
-
 - `ASC` (**Asc**ending): Mivel ez alapértelmezett, így az `ASC` elhagyható
-
----
 
 ## Rendezés 1 mező szerint (csökkenő sorrend)
 
@@ -650,8 +513,6 @@ FROM `tanarok`
 ORDER BY `vezeteknev` DESC;
 ```
 
-<div class="text-sm my-4">
-
 | `id` | `vezeteknev` | `keresztnev` | `szuletett` | `kor` | `nem` | `szak` | `hobbi` | `tanora` | `szakkor` |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 3 | Tóth | Gábor | 1996-02-20 | 30 | 1 | Testnevelés/Biológia | - | 12 | 0 |
@@ -662,15 +523,7 @@ ORDER BY `vezeteknev` DESC;
 | 2 | Kovács | Anna | 1986-11-03 | 40 | 0 | Angol/Biológia | fotózás | 22 | 2 |
 | 7 | Karácsony | Mária | 1980-12-05 | 45 | 0 | Matematika/Kémia | TEREPFUTÁS | 20 | 1 |
 
-</div>
-
 - `DESC`: **Desc**ending
-
----
-layout: two-cols-title
----
-
-::title::
 
 ## Többszintű rendezés
 
@@ -682,18 +535,9 @@ FROM `tanarok`
 ORDER BY `vezeteknev` ASC, `keresztnev` DESC;
 ```
 
-::left::
-
 - Azonos vezetéknév esetén a másodlagos feltétel a keresztnév lesz
 - Több rendezési irányt is megadhatunk, vesszővel elválasztva
 - A rendezés irányát külön-külön kell meghatározni
-
-
-
-::right::
-
-
-<div class="text-sm my-4 w-100">
 
 | `vezeteknev` | `keresztnev` |
 | --- | --- |
@@ -705,15 +549,6 @@ ORDER BY `vezeteknev` ASC, `keresztnev` DESC;
 | Tóth | Miklós |
 | Tóth | Gábor |
 
-</div>
-
-
----
-layout: two-cols-title
----
-
-::title::
-
 ## Rendezés oszlopszám alapján
 
 Jelenítse meg a tanárok `vezeteknev` és `kor` mezőit, majd rendezze az eredményt a második oszlop szerint csökkenő sorrendbe.
@@ -724,14 +559,8 @@ FROM `tanarok`
 ORDER BY 2 DESC;
 ```
 
-::left::
-
 - Az oszlop neve helyett megadható a sorszáma
 - Nem az eredeti táblában, hanem a `SELECT` részben meghatározott oszlopra vonatkozik
-
-::right::
-
-<div class="text-sm my-4 w-100">
 
 | `vezeteknev` | `kor` |
 | --- | --- |
@@ -743,13 +572,6 @@ ORDER BY 2 DESC;
 | Nagy | 33 |
 | Tóth | 30 |
 
-
-</div>
-
-
-
----
-
 ## Első N eredmény (LIMIT)
 
 Jelenítse meg a `tanarok` tábla első 3 rekordját.
@@ -760,24 +582,17 @@ FROM `tanarok`
 LIMIT 3;
 ```
 
-<div class="text-sm my-4">
-
 | `id` | `vezeteknev` | `keresztnev` | `szuletett` | `kor` | `nem` | `szak` | `hobbi` | `tanora` | `szakkor` |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | Nagy | Péter | 1982-04-12 | 43 | 1 | Matematika/Fizika | futás | 24 | 1 |
 | 2 | Kovács | Anna | 1986-11-03 | 40 | 0 | Angol/Biológia | fotózás | 22 | 2 |
 | 3 | Tóth | Gábor | 1996-02-20 | 30 | 1 | Testnevelés/Biológia | - | 12 | 0 |
 
-</div>
-
 - Rendezés nélkül a sorrend nem garantálható
-
----
 
 ## TOP (Access)
 
 Jelenítse meg a `tanarok` tábla első 3 rekordját.
-
 
 ```sql
 SELECT TOP 3 *
@@ -794,15 +609,8 @@ ORDER BY kor DESC;
 
 - A `TOP` kezeli a százalékot is
 
-<br>  
-
-<AdmonitionType type="warning" title="Figyelem!">
-
-A `TOP` MySQL-ben **nem** használható!
-
-</AdmonitionType>
-
----
+> [!WARNING]  
+> A `TOP` MySQL-ben **nem** használható!
 
 ## Legfiatalabb
 
@@ -827,12 +635,6 @@ LIMIT 1;
 
 - Születési dátum alapján **csökkenő** sorrendbe kell rendezni
 
----
-layout: two-cols-title
----
-
-::title::
-
 ## Szűrés, rendezés és limit
 
 Jelenítse meg a 40 év alatti tanárok vezeték- és keresztnevét, ABC sorrendben. Az eredményben legfeljebb három tanár jelenjen meg.
@@ -845,21 +647,15 @@ ORDER BY `vezeteknev`, `keresztnev`
 LIMIT 3;
 ```
 
-::left::
-
 - A különböző záradékoknak (`SELECT`, `FROM`, `WHERE`, ...) a sorrendje kötött
 - Alapértelmezés szerint növekvő sorrendbe rendezi az adatokat
 - Azonos vezetéknevű tanárok esetében keresztnév szerint is növekvő sorrendben lesznek
-
-
-::right::
 
 | `vezeteknev` | `keresztnev` |
 | ------------ | ------------ |
 | Nagy         | Anna         |
 | Szabó        | Eszter       |
 | Tóth         | Gábor        |
-
 
 ## Mi az a NULL?
 
@@ -870,11 +666,7 @@ LIMIT 3;
 - **Nem nulla!** A `0` egy szám. Ha egy diák magassága `0`, az fizikai képtelenség, de ha `NULL`, az azt jelenti, hogy még nem ismert, vagy nem lett rögzítve
 - **Nem üres szöveg!** Az `''` (üres string) egy létező adat, aminek a hossza nulla. A `NULL` ezzel szemben az adat teljes hiánya
 
-
----
-
 ## NULL vizsgálata: `IS NULL` és `IS NOT NULL`
-
 
 ```sql
 SELECT * FROM `tanarok` WHERE `hobbi` = NULL;
@@ -898,14 +690,7 @@ WHERE `megjegyzes` IS NOT NULL;
 
 - Megjeleníti azokat a jegyeket, ahol ki lett töltve a megjegyzés
 
----
-layout: two-cols-title
----
-
-::title::
-
 ## A COALESCE() függvény
-
 
 ```sql
 SELECT 
@@ -915,13 +700,9 @@ SELECT
 FROM `tanarok`;
 ```
 
-::left::
-
 - A `COALESCE()` függvény végigmegy a megadott listán, és az első olyat adja vissza, ami nem `NULL` 
 - Ahol nincs megadva a hobbi, azaz `NULL`, ott a *"Nincs adat"* szöveg fog megjelenni
 - Ahol a hobbi helyett üres szöveg szerepel, ott továbbra is üres szöveg lesz
-
-::right::
 
 | `vezeteknev` | `keresztnev` | `hobbi_szoveg` |
 | ------------ | ------------ | -------------- |
@@ -932,10 +713,6 @@ FROM `tanarok`;
 | Tóth         | Miklós       | Nincs adat     |
 | Nagy         | Anna         | fotózás        |
 | Karácsony    | Mária        | TEREPFUTÁS     |
-
-
----
-
 
 ## Logikai műveletek és a NULL (Háromértékű logika)
 
@@ -948,8 +725,6 @@ FROM `tanarok`;
 - `NOT` (TAGADÁS) művelet
     - A `NULL` állapot nem fordítható meg: `NOT NULL` **`NULL`**
     - Az ismeretlen ellentéte is ismeretlen marad
-
----
 
 ## A NULL hatása a műveletekre
 
