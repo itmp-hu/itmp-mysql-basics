@@ -150,8 +150,9 @@ GROUP BY `osztaly`
 ORDER BY `osztaly_atlag` DESC;
 
 -- 23. Évfolyamonként jelenítse meg milyen magas tornyot tudnának képezni az évfolyam diákjai, ha egymáson állnának.
-SELECT SUBSTRING_INDEX(`osztaly`, '.', 1) AS `evfolyam`,
-       ROUND(SUM(`magassag_cm`) / 100, 2) AS `torony_meter`
-FROM `diakok`
-GROUP BY SUBSTRING_INDEX(`osztaly`, '.', 1)
-ORDER BY `evfolyam` ASC;
+SELECT 
+    SUBSTRING(osztaly, 1, INSTR(osztaly, '.') - 1) AS evfolyam,
+    ROUND(SUM(magassag_cm) / 100, 2) AS torony_meter
+FROM diakok
+GROUP BY SUBSTRING(osztaly, 1, INSTR(osztaly, '.') - 1)
+ORDER BY evfolyam * 1 ASC;
