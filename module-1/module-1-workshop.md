@@ -10,7 +10,7 @@ A [db1.sql](./workshop-sources/db1.sql) fájl tartalmazza az `iskola` adatbázis
 | `vezeteknev` | Szöveg (max. 50)  | Tanár vezetékneve                  |
 | `keresztnev` | Szöveg (max. 50)  | Tanár keresztneve                  |
 | `szuletett`  | Dátum             | Születési dátum                    |
-| `kor`        | Egész szám        | Életkor (év)                       |
+| `kor`        | Egész szám        | Életkor (évben)                    |
 | `nem`        | Logikai           | A tanár neme: 0 = nő, 1 = férfi    |
 | `szak`       | Szöveg (max. 20)  | Szakok megnevezése                 |
 | `hobbi`      | Szöveg (max. 100) | Hobbi megnevezése                  |
