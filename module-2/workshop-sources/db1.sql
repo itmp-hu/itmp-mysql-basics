@@ -30,7 +30,7 @@ CREATE TABLE `diakok` (
   `osztaly` VARCHAR(10) NOT NULL,
   `szuletett` DATE NOT NULL,
   `kor` INT NOT NULL,
-  `email` VARCHAR(120) NOT NULL UNIQUE,
+  `email` VARCHAR(120) DEFAULT NULL,
   `magassag_cm` INT NOT NULL,
   `atlag` FLOAT NOT NULL,
   `irsz` INT NOT NULL,
