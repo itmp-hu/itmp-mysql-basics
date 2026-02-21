@@ -16,8 +16,6 @@
     - csak `GROUP BY`-ban lévő mezőre, vagy összesítő függvény eredményére szűrhetünk vele
 - Ha mindkét helyen szűrhetünk, akkor a `WHERE` a javasolt
 
----
-
 ## Szűrés számított mezőre
 - Melyik hobbit hány tanár jelölte meg?
 - Csak azok a sorok jelenjenek meg, amelyeket több mint 1 tanár szeret
@@ -30,25 +28,16 @@ GROUP BY `hobbi`
 HAVING `fo` > 1;
 ```
 
----
-layout: two-cols-title
----
-
-::title::
-
 ## Matematika szakos tanárok
 
 Adja meg szakonként hány tanár van, de csak a legalább részben matematika szakos tanárokat vegye figyelembe
 
-::left::
 ```sql
 SELECT `szak`, COUNT(*) AS `fo`
 FROM `tanarok`
 GROUP BY `szak`
 HAVING `szak` LIKE '%matematika%';
 ```
-
-<div class="my-4">
 
 | `szak`            | `fo` |
 | ----------------- | ---- |
@@ -57,10 +46,6 @@ HAVING `szak` LIKE '%matematika%';
 
 - Működik, de fölöslegesen hozott létre csoportokat, majd utána szűrt ⚠️
 
-</div>
-
-::right::
-
 ```sql
 SELECT `szak`, COUNT(*) AS `fo`
 FROM `tanarok`
@@ -68,30 +53,16 @@ WHERE `szak` LIKE '%matematika%'
 GROUP BY `szak`;
 ```
 
-<div class="my-4">
-
 | `szak`            | `fo` |
 | ----------------- | ---- |
 | Matematika/Fizika | 1    |
 | Matematika/Kémia  | 1    |
 
-</div>
-
 - Ha lehet, akkor szűrjünk előre! ✅
-
-
-
----
-layout: two-cols-title
----
-
-::title::
 
 ## Szakok és tanárok 45 év alatt
 
 Adja meg szakonként hány 45 év alatti tanár van.
-
-::left::
 
 ```sql
 SELECT `szak`, COUNT(*) AS `fo`
@@ -100,22 +71,9 @@ GROUP BY `szak`
 HAVING `kor` < 45;
 ```
 
-
-<div class="my-4">
-
-<AdmonitionType type="caution" title="Hiba!">
-
-- Error: Unknown column 'kor' in 'having clause'
-
-- A `kor` a csoportosítás után nem hivatkozható!
-
-</AdmonitionType>
-
-
-</div>
-
-
-::right::
+> [!CAUTION]  
+> - Error: Unknown column 'kor' in 'having clause'
+> - A `kor` a csoportosítás után nem hivatkozható!
 
 ```sql
 SELECT `szak`, COUNT(*) AS `fo`
@@ -123,7 +81,6 @@ FROM `tanarok`
 WHERE `kor` < 45
 GROUP BY `szak`;
 ```
-
 
 | `szak`               | `fo` |
 | -------------------- | ---- |
@@ -133,24 +90,13 @@ GROUP BY `szak`;
 | Digitális kultúra    | 1    |
 | Etika/Hittan         | 1    |
 
-
-
 # Adatbázis terv
 
 <img src="../assets/img/db2-diagram.png" style="width: 75%">
 
----
-layout: two-cols-title
----
-
-::title::
-
 ##  Descartes-szorzat
 
-
 Vegyük az alábbi adatokat:
-
-::left::
 
 **diakok (részlet)**
 | id  | vezeteknev | keresztnev | osztaly_id |
@@ -159,15 +105,11 @@ Vegyük az alábbi adatokat:
 | 2   | Szabó      | Bence      | 1          |
 | 3   | Varga      | Dóra       | 5          |
 
-::right::
-
 **osztalyok (részlet)**
 | id  | nev  | terem      |
 | :-- | :--- | :--------- |
 | 1   | 9.A  | 101. terem |
 | 5   | 10.B | 202. terem |
-
----
 
 ## Descartes-szorzat eredménye
 
@@ -179,8 +121,6 @@ SELECT `d`.`id`, `d`.`vezeteknev`, `d`.`keresztnev`, `d`.`osztaly_id`,
 FROM `diakok` AS `d`, `osztalyok` AS `o`
 ```
 
-<div class="my-4">
-
 | `id`  | `vezeteknev` | `keresztnev` | `osztaly_id` | `id` | `nev` | `terem`    |     |
 | ----- | ------------ | ------------ | ------------ | ---- | ----- | ---------- | --- |
 | **1** | **Kiss**     | **Anna**     | **1**        | 1    | 9.A   | 101. terem | ✅  |
@@ -190,11 +130,7 @@ FROM `diakok` AS `d`, `osztalyok` AS `o`
 | **3** | **Varga**    | **Dóra**     | **5**        | 1    | 9.A   | 101. terem | ❌  |
 | **3** | **Varga**    | **Dóra**     | **5**        | 5    | 10.B  | 202. terem | ✅  |
 
-</div>
-
 - Tartalmaz olyan sorokat, amelyek nem felelnek meg a valóságnak
-
----
 
 ## Descartes-szorzat eredmény
 
@@ -207,23 +143,18 @@ FROM `diakok` AS `d`, `osztalyok` AS `o`
 WHERE `d`.`osztaly_id` = `o`.`id`;
 ```
 
-<div class="my-4">
-
 | `id`  | `vezeteknev` | `keresztnev` | `osztaly_id` | `id` | `nev` | `terem`    |     |
 | ----- | ------------ | ------------ | ------------ | ---- | ----- | ---------- | --- |
 | **1** | **Kiss**     | **Anna**     | **1**        | 1    | 9.A   | 101. terem | ✅  |
 | **2** | **Szabó**    | **Bence**    | **1**        | 1    | 9.A   | 101. terem | ✅  |
 | **3** | **Varga**    | **Dóra**     | **5**        | 5    | 10.B  | 202. terem | ✅  |
 
-</div>
-
 - A `WHERE` záradékkal lehet szűrni
-
----
 
 ## Descartes-szorzat feltétellel (hibás)
 
 Melyik osztályba jár Anna és Dóra?
+
 ```sql
 SELECT `d`.`id`, `d`.`vezeteknev`, `d`.`keresztnev`, `d`.`osztaly_id`,
        `o`.`id`, `o`.`nev`, `o`.`terem`
@@ -232,8 +163,6 @@ WHERE `d`.`osztaly_id` = `o`.`id`
 AND `d`.`keresztnev` = 'Anna' OR `d`.`keresztnev` = 'Dóra';
 ```
 
-<div class="my-4">
-
 | `id`  | `vezeteknev` | `keresztnev` | `osztaly_id` | `id` | `nev` | `terem`    |     |
 | ----- | ------------ | ------------ | ------------ | ---- | ----- | ---------- | --- |
 | **1** | **Kiss**     | **Anna**     | **1**        | 1    | 9.A   | 101. terem | ✅  |
@@ -241,12 +170,8 @@ AND `d`.`keresztnev` = 'Anna' OR `d`.`keresztnev` = 'Dóra';
 | **3** | **Varga**    | **Dóra**     | **5**        | 1    | 9.A   | 101. terem | ❌  |
 | **3** | **Varga**    | **Dóra**     | **5**        | 5    | 10.B  | 202. terem | ✅  |
 
-</div>
-
 - Ha nincs jól zárójelezve, akkor összekeveredik az összekapcsolás feltétele és a tényleges szűrés
 - Anna esetében jól szűr, de Dóra mellett hibás sorok is megjelennek
-
----
 
 ## INNER JOIN (2 tábla)
 
@@ -260,22 +185,15 @@ FROM `diakok` AS `d`
         ON `d`.`osztaly_id` = `o`.`id`;
 ```
 
-<div class="my-4">
-
 | `id`  | `vezeteknev` | `keresztnev` | `osztaly_id` | `id` | `nev` | `terem`    |     |
 | ----- | ------------ | ------------ | ------------ | ---- | ----- | ---------- | --- |
 | **1** | **Kiss**     | **Anna**     | **1**        | 1    | 9.A   | 101. terem | ✅  |
 | **2** | **Szabó**    | **Bence**    | **1**        | 1    | 9.A   | 101. terem | ✅  |
 | **3** | **Varga**    | **Dóra**     | **5**        | 5    | 10.B  | 202. terem | ✅  |
 
-</div>
-
 - Az `INNER JOIN` csak azt jeleníti meg, amihez kapcsolódik valami a másik táblában
 - Az `ON` záradékban a `WHERE`-hez hasonlóan logikai kifejezésnek kell szerepelnie
 - Az *"ANSI-92"* szabványában már létezett
-
-
----
 
 ## INNER JOIN (több tábla)
 
@@ -292,8 +210,6 @@ FROM `diakok` AS `d`
         ON `dt`.`tantargy_id` = `t`.`id`;
 ```
 
----
-
 # Mire kell figyelni?
 
 - Az idegen kulcsot a megfelelő elsődleges kulccsal kell összekötni.
@@ -305,9 +221,6 @@ FROM `diakok` AS `d`
 - Az összekapcsolás sorrendje nem számít, de `SELECT *` esetén a sorrendet befolyásolja
 - Több tábla esetén sose hagyjuk ki az összekötő táblákat
 
-
----
-
 ## Gyakori hibák: Az ID összekötése ID-val
 
 ```sql
@@ -317,9 +230,7 @@ FROM `diakok`
         ON `diakok`.`id` = `osztalyok`.`id`;
 ```
 
-
 - A diák sorszámát az osztály sorszámával köti össze, nem pedig azzal az osztállyal, ahová a diák ténylegesen jár. ❌
-
 
 ```sql
 SELECT `diakok`.`vezeteknev`, `diakok`.`keresztnev`, `osztalyok`.`nev`
@@ -329,9 +240,6 @@ FROM `diakok`
 ```
 
 - Az ábra szerint összekötve jó eredményt kapunk ✅
-
-
----
 
 ## Gyakori hibák: Szükségtelen táblák összekapcsolása
 
@@ -350,8 +258,6 @@ SELECT COUNT(*) AS `tanarok_szama` FROM `tanarok`;
 ```
 
 - Itt csak 1 tábla szükséges ✅
-
----
 
 ## Gyakori hibák: Köztes táblák kihagyása
 
@@ -372,9 +278,6 @@ FROM `diakok`
 ```
 
 - Végig kell vezetni az ábrát az egyik táblából a másikba ✅
-
-
----
 
 ## Gyakori hibák: Azonos mezőnevek
 
@@ -398,13 +301,10 @@ INNER JOIN `osztalyok` ON `diakok`.`osztaly_id` = `osztalyok`.`id`;
 -  Megoldás lehet, ha a tábla neve is szerepel a `SELECT`-ben, vagy ahol gondot okoz ✅
 - `SELECT *` esetén lefut, de két `id` oszlopot kaphatunk
 
----
-
 ## Komplex példa
 
 Határozza meg osztályonként a Matematika átlagát.
 Az eredményt két tizedesre kerekítse. Kezdje a legerősebb osztállyal.
-
 
 ```sql
 SELECT 
