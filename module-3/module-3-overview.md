@@ -92,7 +92,7 @@ GROUP BY `szak`;
 
 # Adatbázis terv
 
-<img src="../assets/img/db2-diagram.png" style="width: 75%">
+<img src="./assets/db2-diagram.png" style="width: 75%">
 
 ##  Descartes-szorzat
 
