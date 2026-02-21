@@ -5,6 +5,8 @@ A [db2.sql](./workshop-sources/db2.sql) fájl, (ami tartalmilag megegyezik az el
 > [!WARNING]
 > A már létező `diakok` tábla is módosult!
 
+![Adatbázis áttekintés](./assets/db2-diagram.png) 
+
 
 ## `tanarok` tábla
 
