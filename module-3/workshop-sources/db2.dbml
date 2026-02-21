@@ -1,0 +1,70 @@
+Table "diakok" {
+  "id" int [pk, not null]
+  "vezeteknev" varchar(50) [not null]
+  "keresztnev" varchar(50) [not null]
+  "nem" tinyint(1) [not null]
+  "szuletett" date [not null]
+  "kor" int [not null]
+  "email" varchar(120) [default: NULL]
+  "magassag_cm" int [not null]
+  "atlag" float [not null]
+  "irsz" int [not null]
+  "lakcim" varchar(100) [not null]
+  "osztaly_id" int [not null]
+}
+
+Table "diak_tantargy" {
+  "diak_id" int [not null]
+  "tantargy_id" int [not null]
+
+  Indexes {
+    (diak_id, tantargy_id) [pk]
+  }
+}
+
+Table "jegyek" {
+  "id" int [pk, not null]
+  "diak_id" int [not null]
+  "tanar_id" int [not null]
+  "tantargy_id" int [not null]
+  "ertek" int [not null]
+  "suly" float [not null]
+  "rogzitve" datetime [default: `CURRENT_TIMESTAMP`]
+}
+
+Table "osztalyok" {
+  "id" int [pk, not null]
+  "nev" varchar(10) [not null]
+  "terem" varchar(20) [default: NULL]
+  "osztalyfonok" varchar(100) [default: NULL]
+}
+
+Table "tanarok" {
+  "id" int [pk, not null]
+  "vezeteknev" varchar(50) [not null]
+  "keresztnev" varchar(50) [not null]
+  "szuletett" date [not null]
+  "kor" int [not null]
+  "nem" tinyint(1) [not null]
+  "szak" varchar(20) [default: NULL]
+  "hobbi" varchar(100) [default: NULL]
+  "tanora" int [not null]
+  "szakkor" int [default: '0']
+}
+
+Table "tantargyak" {
+  "id" int [pk, not null]
+  "nev" varchar(50) [not null]
+}
+
+Ref "diakok_ibfk_1":"osztalyok"."id" < "diakok"."osztaly_id"
+
+Ref "diak_tantargy_ibfk_1":"diakok"."id" < "diak_tantargy"."diak_id"
+
+Ref "diak_tantargy_ibfk_2":"tantargyak"."id" < "diak_tantargy"."tantargy_id"
+
+Ref "jegyek_ibfk_1":"diakok"."id" < "jegyek"."diak_id"
+
+Ref "jegyek_ibfk_2":"tanarok"."id" < "jegyek"."tanar_id"
+
+Ref "jegyek_ibfk_3":"tantargyak"."id" < "jegyek"."tantargy_id"
