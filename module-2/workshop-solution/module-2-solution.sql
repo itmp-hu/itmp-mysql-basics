@@ -43,7 +43,7 @@ FROM `diakok`;
 -- 7. Jelenítse meg a diákok teljes nevét és magasságát méterben úgy, hogy a mértékegység is szerepeljen!
 --    Az eredményt 2 tizedesre kerekítse és rendezze magasság szerint növekvő sorrendbe!
 SELECT CONCAT(`vezeteknev`, ' ', `keresztnev`) AS `teljes_nev`,
-       CONCAT(FORMAT(`magassag_cm` / 100, 2), ' m') AS `magassag_m`
+       CONCAT(ROUND(`magassag_cm` / 100, 2), ' m') AS `magassag_m`
 FROM `diakok`
 ORDER BY `magassag_cm` ASC;
 
@@ -60,7 +60,7 @@ SELECT CONCAT(`vezeteknev`, ' ', `keresztnev`) AS `teljes_nev`,
        TRIM(LEFT(`lakcim`, INSTR(`lakcim`, ',') - 1)) AS `varos`
 FROM `diakok`;
 
--- 10. Jelenítse meg, hogy milyen e-mail cím szolgáltatót választották a diákok.
+-- 10. Jelenítse meg, hogy milyen e-mail cím szolgáltatót választottak a diákok.
 --     Ügyeljen rá, hogy ne legyenek ismétlődések! Az eredményt ABC sorrendben jelenítse meg!
 SELECT DISTINCT
        LOWER(
